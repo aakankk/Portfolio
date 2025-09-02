@@ -29,6 +29,14 @@ import ThemeToggle from "@/components/ThemeToggle";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import InteractiveTimeline from "@/components/InteractiveTimeline";
 
+// Import AI-generated images
+import heroBackground from "@/assets/hero-background.jpg";
+import aboutIllustration from "@/assets/about-illustration.jpg";
+import project1Image from "@/assets/project-1.jpg";
+import project2Image from "@/assets/project-2.jpg";
+import project3Image from "@/assets/project-3.jpg";
+import skillsBackground from "@/assets/skills-background.jpg";
+
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -177,7 +185,12 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center pt-20 px-6 relative z-10">
+      <section 
+        className="min-h-screen flex items-center justify-center pt-20 px-6 relative z-10 bg-cover bg-center bg-no-repeat"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url(${heroBackground})` 
+        }}
+      >
         <div className="text-center max-w-4xl mx-auto animate-fade-in">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
             <span className="text-gradient animate-bounce-slow">Aakanksha</span>
@@ -291,21 +304,12 @@ const Index = () => {
                 of machine learning to solve meaningful problems.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-6">
-              <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
-                <CardContent className="p-6 text-center">
-                  <Code className="h-8 w-8 text-primary mx-auto mb-4" />
-                  <h3 className="font-semibold text-lg mb-2">Full-Stack</h3>
-                  <p className="text-muted-foreground">React, Firebase, C++</p>
-                </CardContent>
-              </Card>
-              <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
-                <CardContent className="p-6 text-center">
-                  <Brain className="h-8 w-8 text-accent mx-auto mb-4" />
-                  <h3 className="font-semibold text-lg mb-2">ML/AI</h3>
-                  <p className="text-muted-foreground">PyTorch, Scikit-learn</p>
-                </CardContent>
-              </Card>
+            <div className="relative">
+              <img 
+                src={aboutIllustration} 
+                alt="Professional developer illustration" 
+                className="rounded-lg shadow-elegant w-full h-auto hover-tilt magnetic"
+              />
             </div>
           </div>
         </div>
@@ -364,20 +368,34 @@ const Index = () => {
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl font-bold text-center mb-16 text-gradient">Key Projects</h2>
           <div className="grid gap-8">
-            {projects.map((project, index) => (
-              <Card key={index} className="hover-lift bg-gradient-card animate-slide-up hover-tilt magnetic group" style={{animationDelay: `${index * 0.1}s`}}>
-                <CardHeader>
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors duration-300">{project.title}</CardTitle>
-                      <Badge variant="outline" className="mb-2 group-hover:border-primary transition-colors duration-300">{project.type}</Badge>
+            {projects.map((project, index) => {
+              const projectImages = [project1Image, project2Image, project3Image];
+              const projectImage = index < 3 ? projectImages[index] : null;
+              
+              return (
+                <Card key={index} className="hover-lift bg-gradient-card animate-slide-up hover-tilt magnetic group" style={{animationDelay: `${index * 0.1}s`}}>
+                  {projectImage && (
+                    <div className="relative overflow-hidden rounded-t-lg">
+                      <img 
+                        src={projectImage} 
+                        alt={`${project.title} preview`}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors duration-300"></div>
                     </div>
-                    <Badge variant="secondary">{project.date}</Badge>
-                  </div>
-                  <CardDescription className="text-base leading-relaxed">
-                    {project.description}
-                  </CardDescription>
-                </CardHeader>
+                  )}
+                  <CardHeader>
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors duration-300">{project.title}</CardTitle>
+                        <Badge variant="outline" className="mb-2 group-hover:border-primary transition-colors duration-300">{project.type}</Badge>
+                      </div>
+                      <Badge variant="secondary">{project.date}</Badge>
+                    </div>
+                    <CardDescription className="text-base leading-relaxed">
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
                 <CardContent>
                   <div className="space-y-3 mb-6">
                     {project.highlights.map((highlight, idx) => (
@@ -395,8 +413,9 @@ const Index = () => {
                     ))}
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
