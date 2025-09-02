@@ -14,8 +14,20 @@ import {
   Award,
   Users,
   Target,
-  Zap
+  Zap,
+  Star,
+  Trophy,
+  BookOpen,
+  Coffee
 } from "lucide-react";
+
+// Import new components
+import AnimatedCounter from "@/components/AnimatedCounter";
+import SkillProgressBar from "@/components/SkillProgressBar";
+import FloatingParticles from "@/components/FloatingParticles";
+import ThemeToggle from "@/components/ThemeToggle";
+import FloatingActionButton from "@/components/FloatingActionButton";
+import InteractiveTimeline from "@/components/InteractiveTimeline";
 
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
@@ -92,12 +104,20 @@ const Index = () => {
     }
   ];
 
-  const skills = {
-    "Programming Languages": ["C", "C++", "Python", "R", "Javascript"],
-    "Web Technologies": ["HTML", "CSS", "MySQL"],
-    "Software": ["MS Office", "Canva", "G-Suite"], 
-    "ML Libraries": ["Numpy", "Pandas", "MatplotLib", "PyTorch", "SciKit", "Jupyter", "Spacy"]
-  };
+  const skillsData = [
+    { skill: "Python", level: 90 },
+    { skill: "Machine Learning", level: 85 },
+    { skill: "React.js", level: 80 },
+    { skill: "PyTorch", level: 85 },
+    { skill: "C/C++", level: 80 },
+    { skill: "JavaScript", level: 75 },
+    { skill: "Data Analysis", level: 90 },
+    { skill: "Firebase", level: 70 },
+    { skill: "Computer Vision", level: 85 },
+    { skill: "Statistical Analysis", level: 90 },
+    { skill: "MySQL", level: 75 },
+    { skill: "Web Development", level: 80 }
+  ];
 
   const positions = [
     {
@@ -132,32 +152,35 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="min-h-screen bg-gradient-hero relative">
+      <FloatingParticles />
+      
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-white/20">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-background/80 backdrop-blur-md border-b border-white/20 dark:border-border/20">
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold text-gradient">Aakanksha Kumari</h2>
-            <div className="hidden md:flex space-x-6">
-              {['about', 'education', 'projects', 'skills', 'experience', 'contact'].map((section) => (
+            <div className="hidden md:flex space-x-6 items-center">
+              {['about', 'stats', 'timeline', 'projects', 'skills', 'experience', 'contact'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className="text-muted-foreground hover:text-primary transition-smooth capitalize"
+                  className="text-muted-foreground hover:text-primary transition-smooth capitalize magnetic"
                 >
                   {section}
                 </button>
               ))}
+              <ThemeToggle />
             </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center pt-20 px-6">
+      <section className="min-h-screen flex items-center justify-center pt-20 px-6 relative z-10">
         <div className="text-center max-w-4xl mx-auto animate-fade-in">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="text-gradient">Aakanksha</span>
+            <span className="text-gradient animate-bounce-slow">Aakanksha</span>
             <br />
             <span className="text-foreground">Kumari</span>
           </h1>
@@ -175,7 +198,7 @@ const Index = () => {
             <Button 
               size="lg" 
               onClick={() => scrollToSection('projects')}
-              className="animate-glow"
+              className="animate-glow magnetic hover-tilt"
             >
               <Zap className="mr-2 h-5 w-5" />
               View My Work
@@ -184,6 +207,7 @@ const Index = () => {
               variant="outline" 
               size="lg"
               onClick={() => scrollToSection('contact')}
+              className="magnetic hover-tilt"
             >
               <Mail className="mr-2 h-5 w-5" />
               Get In Touch
@@ -191,18 +215,66 @@ const Index = () => {
           </div>
 
           <div className="flex justify-center space-x-6">
-            <a href="https://github.com/aakankkk" className="text-muted-foreground hover:text-primary transition-smooth">
+            <a href="https://github.com/aakankkk" className="text-muted-foreground hover:text-primary transition-smooth magnetic">
               <Github className="h-6 w-6" />
             </a>
-            <a href="mailto:aakankshah21@iitk.ac.in" className="text-muted-foreground hover:text-primary transition-smooth">
+            <a href="mailto:aakankshah21@iitk.ac.in" className="text-muted-foreground hover:text-primary transition-smooth magnetic">
               <Mail className="h-6 w-6" />
             </a>
           </div>
         </div>
       </section>
 
+      {/* Statistics Section */}
+      <section id="stats" className="py-20 px-6 bg-muted/30 relative z-10">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-4xl font-bold text-center mb-16 text-gradient">Impressive Numbers</h2>
+          <div className="grid md:grid-cols-4 gap-8">
+            <Card className="hover-lift bg-gradient-card text-center hover-tilt">
+              <CardContent className="p-6">
+                <Trophy className="h-8 w-8 text-primary mx-auto mb-4" />
+                <AnimatedCounter end={6} suffix="+" />
+                <p className="text-muted-foreground mt-2">Major Projects</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-lift bg-gradient-card text-center hover-tilt">
+              <CardContent className="p-6">
+                <Star className="h-8 w-8 text-accent mx-auto mb-4" />
+                <AnimatedCounter end={99} suffix="%" />
+                <p className="text-muted-foreground mt-2">Model Accuracy</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-lift bg-gradient-card text-center hover-tilt">
+              <CardContent className="p-6">
+                <Users className="h-8 w-8 text-primary mx-auto mb-4" />
+                <AnimatedCounter end={300} suffix="+" />
+                <p className="text-muted-foreground mt-2">Students Reached</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-lift bg-gradient-card text-center hover-tilt">
+              <CardContent className="p-6">
+                <BookOpen className="h-8 w-8 text-accent mx-auto mb-4" />
+                <AnimatedCounter end={4} suffix="+" />
+                <p className="text-muted-foreground mt-2">Years Learning</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline Section */}
+      <section id="timeline" className="py-20 px-6 relative z-10">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-4xl font-bold text-center mb-16 text-gradient">My Journey</h2>
+          <InteractiveTimeline />
+        </div>
+      </section>
+
       {/* About Section */}
-      <section id="about" className="py-20 px-6">
+      <section id="about" className="py-20 px-6 bg-muted/30 relative z-10">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl font-bold text-center mb-16 text-gradient">About Me</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -220,14 +292,14 @@ const Index = () => {
               </p>
             </div>
             <div className="grid grid-cols-2 gap-6">
-              <Card className="hover-lift bg-gradient-card">
+              <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
                 <CardContent className="p-6 text-center">
                   <Code className="h-8 w-8 text-primary mx-auto mb-4" />
                   <h3 className="font-semibold text-lg mb-2">Full-Stack</h3>
                   <p className="text-muted-foreground">React, Firebase, C++</p>
                 </CardContent>
               </Card>
-              <Card className="hover-lift bg-gradient-card">
+              <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
                 <CardContent className="p-6 text-center">
                   <Brain className="h-8 w-8 text-accent mx-auto mb-4" />
                   <h3 className="font-semibold text-lg mb-2">ML/AI</h3>
@@ -240,11 +312,11 @@ const Index = () => {
       </section>
 
       {/* Education Section */}
-      <section id="education" className="py-20 px-6 bg-muted/30">
+      <section id="education" className="py-20 px-6 relative z-10">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl font-bold text-center mb-16 text-gradient">Education</h2>
           <div className="space-y-6">
-            <Card className="hover-lift bg-gradient-card">
+            <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div>
@@ -261,7 +333,7 @@ const Index = () => {
             </Card>
             
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="hover-lift bg-gradient-card">
+              <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
                 <CardHeader>
                   <CardTitle>CBSE (XII)</CardTitle>
                   <CardDescription>JVM Shyamali, Ranchi</CardDescription>
@@ -272,7 +344,7 @@ const Index = () => {
                 </CardHeader>
               </Card>
               
-              <Card className="hover-lift bg-gradient-card">
+              <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
                 <CardHeader>
                   <CardTitle>CBSE (X)</CardTitle>
                   <CardDescription>DAV Public School Gandhi Nagar, Ranchi</CardDescription>
@@ -288,17 +360,17 @@ const Index = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-6">
+      <section id="projects" className="py-20 px-6 bg-muted/30 relative z-10">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl font-bold text-center mb-16 text-gradient">Key Projects</h2>
           <div className="grid gap-8">
             {projects.map((project, index) => (
-              <Card key={index} className="hover-lift bg-gradient-card animate-slide-up" style={{animationDelay: `${index * 0.1}s`}}>
+              <Card key={index} className="hover-lift bg-gradient-card animate-slide-up hover-tilt magnetic group" style={{animationDelay: `${index * 0.1}s`}}>
                 <CardHeader>
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <CardTitle className="text-xl mb-2">{project.title}</CardTitle>
-                      <Badge variant="outline" className="mb-2">{project.type}</Badge>
+                      <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors duration-300">{project.title}</CardTitle>
+                      <Badge variant="outline" className="mb-2 group-hover:border-primary transition-colors duration-300">{project.type}</Badge>
                     </div>
                     <Badge variant="secondary">{project.date}</Badge>
                   </div>
@@ -317,7 +389,7 @@ const Index = () => {
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs">
+                      <Badge key={idx} variant="secondary" className="text-xs magnetic">
                         {tech}
                       </Badge>
                     ))}
@@ -330,26 +402,82 @@ const Index = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-6 bg-muted/30">
+      <section id="skills" className="py-20 px-6 relative z-10">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl font-bold text-center mb-16 text-gradient">Technical Skills</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {Object.entries(skills).map(([category, skillList], index) => (
-              <Card key={category} className="hover-lift bg-gradient-card animate-scale-in" style={{animationDelay: `${index * 0.1}s`}}>
-                <CardHeader>
-                  <CardTitle className="text-lg text-center">{category}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {skillList.map((skill, idx) => (
-                      <Badge key={idx} variant="outline" className="text-xs">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {skillsData.map((skillItem, index) => (
+              <div key={skillItem.skill} className="animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
+                <SkillProgressBar 
+                  skill={skillItem.skill} 
+                  level={skillItem.level} 
+                  delay={index * 100}
+                />
+              </div>
             ))}
+          </div>
+          
+          {/* Technology Categories */}
+          <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
+              <CardHeader>
+                <CardTitle className="text-lg text-center">Languages</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {["C", "C++", "Python", "R", "JavaScript"].map((skill, idx) => (
+                    <Badge key={idx} variant="outline" className="text-xs magnetic">
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
+              <CardHeader>
+                <CardTitle className="text-lg text-center">ML/AI</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {["PyTorch", "Scikit-learn", "Pandas", "NumPy", "Jupyter"].map((skill, idx) => (
+                    <Badge key={idx} variant="outline" className="text-xs magnetic">
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
+              <CardHeader>
+                <CardTitle className="text-lg text-center">Web Tech</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {["React", "HTML", "CSS", "Firebase", "MySQL"].map((skill, idx) => (
+                    <Badge key={idx} variant="outline" className="text-xs magnetic">
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover-lift bg-gradient-card hover-tilt magnetic">
+              <CardHeader>
+                <CardTitle className="text-lg text-center">Tools</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {["Git", "Canva", "MS Office", "G-Suite"].map((skill, idx) => (
+                    <Badge key={idx} variant="outline" className="text-xs magnetic">
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -481,6 +609,9 @@ const Index = () => {
           </p>
         </div>
       </footer>
+
+      {/* Floating Action Button */}
+      <FloatingActionButton />
     </div>
   );
 };
